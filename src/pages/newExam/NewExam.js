@@ -1,6 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import * as G from "../../globalStyles/styles";
 import * as material from "@mui/material";
+import {
+  handleNewExam,
+  handleProfessors,
+  handleSubjects,
+} from "../../services/api";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -10,17 +17,46 @@ export default function NewExam() {
   const [subject, setSubject] = useState("");
   const [professor, setProfessor] = useState("");
   const [link, setLink] = useState("");
+  const [allSubjects, setAllSubjects] = useState([]);
+  const [allProfessors, setAllProfessors] = useState([]);
+  const navigate = useNavigate();
 
-  useEffect(() => {}, []);
-  const mockSubject = [
-    { id: 1, name: "Cálculo1" },
-    { id: 1, name: "Cálculo2" },
-    { id: 1, name: "Cálculo3" },
-    { id: 1, name: "Cálculo4" },
-  ];
+  useEffect(async () => {
+    try {
+      const result = await handleSubjects();
+      setAllSubjects(result);
+    } catch (e) {
+      alert(e.message);
+    }
+  }, []);
+
+  async function getAllProfessors(subject) {
+    const result = await handleProfessors(subject);
+    setAllProfessors(result);
+  }
+
   async function sendExam(e) {
     e.preventDefault();
-    console.log(name, type, subject, professor, link);
+    const body = {
+      name: name,
+      type: type,
+      subject_id: subject,
+      professor_id: professor,
+      link: link,
+    };
+
+    try {
+      const result = await handleNewExam(body);
+      if (!result) alert("Erro ao enviar a prova, tente novamente");
+      alert("Prova enviada com sucesso");
+      navigate("/");
+    } catch (e) {
+      if (e.message === "Request failed with status code 404")
+        alert("Falha na conexão, tente novamente!");
+
+      if (e.message === "Request failed with status code 403")
+        alert("Prova já existente!");
+    }
   }
   return (
     <G.Body>
@@ -60,12 +96,13 @@ export default function NewExam() {
               required
               value={subject}
               onChange={(elem) => {
+                getAllProfessors(elem.target.value);
                 setSubject(elem.target.value);
               }}
               label="Subject"
             >
-              {mockSubject.map((info) => (
-                <material.MenuItem key={info.id} value={info.name}>
+              {allSubjects.map((info) => (
+                <material.MenuItem key={info.id} value={info.id}>
                   {info.name}
                 </material.MenuItem>
               ))}
@@ -82,9 +119,11 @@ export default function NewExam() {
               }}
               label="Subject"
             >
-              <material.MenuItem value={10}>Ten</material.MenuItem>
-              <material.MenuItem value={20}>Twenty</material.MenuItem>
-              <material.MenuItem value={30}>Thirty</material.MenuItem>
+              {allProfessors.map((info) => (
+                <material.MenuItem key={info.id} value={info.id}>
+                  {info.name}
+                </material.MenuItem>
+              ))}
             </material.Select>
           </material.FormControl>
           <material.FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
