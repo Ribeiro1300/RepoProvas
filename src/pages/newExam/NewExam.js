@@ -73,7 +73,7 @@ export default function NewExam() {
               inputProps={ariaLabel}
             />
           </material.FormControl>
-          <material.FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <material.FormControl variant="standard" sx={{ m: 1, minWidth: 210 }}>
             <material.InputLabel>Tipo</material.InputLabel>
             <material.Select
               required
@@ -90,7 +90,7 @@ export default function NewExam() {
               <material.MenuItem value="other">Outras</material.MenuItem>
             </material.Select>
           </material.FormControl>
-          <material.FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <material.FormControl variant="standard" sx={{ m: 1, minWidth: 210 }}>
             <material.InputLabel>Disciplina</material.InputLabel>
             <material.Select
               required
@@ -108,7 +108,7 @@ export default function NewExam() {
               ))}
             </material.Select>
           </material.FormControl>
-          <material.FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <material.FormControl variant="standard" sx={{ m: 1, minWidth: 210 }}>
             <material.InputLabel>Professor</material.InputLabel>
             <material.Select
               required

@@ -19,3 +19,8 @@ export async function handleNewExam(body) {
   const result = await API.post("/exams", body);
   return result;
 }
+
+export async function handleGetExams(filter, id) {
+  const result = await API.get(`/exams/${filter}/${id}`);
+  return result.data;
+}
