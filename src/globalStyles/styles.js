@@ -18,9 +18,14 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 `;
 
 export const Option = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
   width: 30%;
   height: 8em;
   background-color: black;
