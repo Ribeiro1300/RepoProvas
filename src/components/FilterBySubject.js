@@ -23,12 +23,11 @@ export default function FilterBySubject() {
   });
 
   const allSemestersFiltered = [...new Set(allSemesters)];
-
   return (
     <S.Exams>
       {!filter.name ? (
         allSemestersFiltered.map((info) => (
-          <S.Exam>
+          <S.Exam key={info}>
             <h2>Período: {info}</h2>
             {subjects.map((subject) => {
               if (subject.semester === info && subject.qt != 0) {
