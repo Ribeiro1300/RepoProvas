@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import HomeImg from "../assets/homework-g63a8cdc98_1920.jpg";
 
 export const Body = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #171717;
+  background-image: url(${HomeImg});
+  background-size: cover;
+  background-position: center;
   color: white;
   display: flex;
   justify-content: center;
@@ -11,8 +14,8 @@ export const Body = styled.div`
 `;
 export const Content = styled.div`
   width: 70%;
-  height: 80vh;
-  background-color: #666666;
+  min-height: 70vh;
+  background-color: rgba(102, 102, 102, 0.8);
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -26,7 +29,7 @@ export const Option = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  width: 30%;
+  width: 40%;
   height: 8em;
   background-color: black;
   margin: 10px;
